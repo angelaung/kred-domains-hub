@@ -192,12 +192,13 @@ export default function MyDomains() {
                       </div>
                     </div>
 
-                    {/* Expiry Info */}
-                    <div className="pt-2 border-t border-border/50">
-                      <div className="text-xs text-muted-foreground mb-1">Expires in</div>
+                    {/* Expiry Info with Progress */}
+                    <div className="pt-2 border-t border-border/50 space-y-2">
+                      <div className="text-xs text-muted-foreground">Expires in</div>
                       <div className="text-sm font-medium">
                         {domain.daysUntilExpiry} days
                       </div>
+                      <Progress value={getExpiryProgress(domain.daysUntilExpiry)} className="h-1.5" />
                     </div>
 
                     {/* Primary Action */}
