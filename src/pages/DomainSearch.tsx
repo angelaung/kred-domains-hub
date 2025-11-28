@@ -102,7 +102,7 @@ export default function DomainSearch() {
           <span className="gradient-text">.Kred</span> Domain
         </h1>
         <p className="text-xl text-muted-foreground mb-8">
-          Your identity, both online and onchain. DNS + ENS support included.
+          Your Identity - Online and Onchain - DNS and ENS
         </p>
 
         {/* Search Bar */}
