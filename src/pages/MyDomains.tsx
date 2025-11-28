@@ -6,7 +6,9 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "react-router-dom";
-import kiteboardingHero from "@/assets/kiteboarding-domain-hero.jpg";
+import kiteboardingHero from "@/assets/kiteboarding-hero-v2.jpg";
+import leaderHero from "@/assets/leader-hero.jpg";
+import myHappyPlaceHero from "@/assets/myhappyplace-hero.jpg";
 
 interface Domain {
   id: string;
@@ -47,7 +49,7 @@ const mockDomains: Domain[] = [
     ensConfigured: true,
     websiteLinked: true,
     walletLinked: true,
-    heroImage: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&h=400&fit=crop&q=80",
+    heroImage: leaderHero,
   },
   {
     id: "3",
@@ -60,7 +62,7 @@ const mockDomains: Domain[] = [
     ensConfigured: true,
     websiteLinked: true,
     walletLinked: true,
-    heroImage: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=400&fit=crop&q=80",
+    heroImage: myHappyPlaceHero,
   },
 ];
 
