@@ -9,6 +9,14 @@ import { Link } from "react-router-dom";
 import kiteboardingHero from "@/assets/kiteboarding-hero-v3.jpg";
 import leaderHero from "@/assets/leader-hero-v2.jpg";
 import myHappyPlaceHero from "@/assets/myhappyplace-hero-v2.jpg";
+import goldenRetrieverHero from "@/assets/goldenretriever-hero.jpg";
+import jamesBondHero from "@/assets/jamesbond-hero.jpg";
+import newYorkHero from "@/assets/newyork-hero.jpg";
+import heliskiingHero from "@/assets/heliskiing-hero.jpg";
+import jenniferHero from "@/assets/jennifer-hero.jpg";
+import hj987y2Hero from "@/assets/hj987y2-hero.jpg";
+import num1234Hero from "@/assets/1234-hero.jpg";
+import aiHero from "@/assets/ai-hero.jpg";
 
 interface Domain {
   id: string;
@@ -63,6 +71,110 @@ const mockDomains: Domain[] = [
     websiteLinked: true,
     walletLinked: true,
     heroImage: myHappyPlaceHero,
+  },
+  {
+    id: "4",
+    name: "GoldenRetriever.Kred",
+    expiryDate: "2025-06-15",
+    autoRenew: true,
+    daysUntilExpiry: 198,
+    hasToken: true,
+    dnsConfigured: true,
+    ensConfigured: false,
+    websiteLinked: true,
+    walletLinked: true,
+    heroImage: goldenRetrieverHero,
+  },
+  {
+    id: "5",
+    name: "JamesBond.Kred",
+    expiryDate: "2025-08-30",
+    autoRenew: false,
+    daysUntilExpiry: 274,
+    hasToken: true,
+    dnsConfigured: true,
+    ensConfigured: true,
+    websiteLinked: false,
+    walletLinked: true,
+    heroImage: jamesBondHero,
+  },
+  {
+    id: "6",
+    name: "NewYork.Kred",
+    expiryDate: "2025-11-20",
+    autoRenew: true,
+    daysUntilExpiry: 356,
+    hasToken: true,
+    dnsConfigured: false,
+    ensConfigured: false,
+    websiteLinked: false,
+    walletLinked: false,
+    heroImage: newYorkHero,
+  },
+  {
+    id: "7",
+    name: "Heliskiing.Kred",
+    expiryDate: "2025-04-10",
+    autoRenew: true,
+    daysUntilExpiry: 132,
+    hasToken: true,
+    dnsConfigured: true,
+    ensConfigured: true,
+    websiteLinked: true,
+    walletLinked: true,
+    heroImage: heliskiingHero,
+  },
+  {
+    id: "8",
+    name: "Jennifer.Kred",
+    expiryDate: "2025-01-25",
+    autoRenew: false,
+    daysUntilExpiry: 58,
+    hasToken: true,
+    dnsConfigured: true,
+    ensConfigured: false,
+    websiteLinked: true,
+    walletLinked: false,
+    heroImage: jenniferHero,
+  },
+  {
+    id: "9",
+    name: "hj987y2.Kred",
+    expiryDate: "2025-07-12",
+    autoRenew: true,
+    daysUntilExpiry: 225,
+    hasToken: false,
+    dnsConfigured: false,
+    ensConfigured: false,
+    websiteLinked: false,
+    walletLinked: false,
+    heroImage: hj987y2Hero,
+  },
+  {
+    id: "10",
+    name: "1234.Kred",
+    expiryDate: "2025-05-05",
+    autoRenew: false,
+    daysUntilExpiry: 157,
+    hasToken: true,
+    dnsConfigured: true,
+    ensConfigured: false,
+    websiteLinked: false,
+    walletLinked: true,
+    heroImage: num1234Hero,
+  },
+  {
+    id: "11",
+    name: "AI.Kred",
+    expiryDate: "2025-10-01",
+    autoRenew: true,
+    daysUntilExpiry: 306,
+    hasToken: true,
+    dnsConfigured: true,
+    ensConfigured: true,
+    websiteLinked: true,
+    walletLinked: true,
+    heroImage: aiHero,
   },
 ];
 
