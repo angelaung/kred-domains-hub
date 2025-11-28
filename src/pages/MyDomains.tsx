@@ -6,9 +6,9 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "react-router-dom";
-import kiteboardingHero from "@/assets/kiteboarding-hero-v2.jpg";
-import leaderHero from "@/assets/leader-hero.jpg";
-import myHappyPlaceHero from "@/assets/myhappyplace-hero.jpg";
+import kiteboardingHero from "@/assets/kiteboarding-hero-v3.jpg";
+import leaderHero from "@/assets/leader-hero-v2.jpg";
+import myHappyPlaceHero from "@/assets/myhappyplace-hero-v2.jpg";
 
 interface Domain {
   id: string;
