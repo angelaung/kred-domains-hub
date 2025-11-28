@@ -16,6 +16,9 @@ interface Domain {
   hasToken: boolean;
   dnsConfigured: boolean;
   ensConfigured: boolean;
+  websiteLinked: boolean;
+  walletLinked: boolean;
+  heroImage?: string;
 }
 
 const mockDomains: Domain[] = [
@@ -28,6 +31,9 @@ const mockDomains: Domain[] = [
     hasToken: true,
     dnsConfigured: true,
     ensConfigured: true,
+    websiteLinked: true,
+    walletLinked: true,
+    heroImage: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&h=400&fit=crop",
   },
   {
     id: "2",
@@ -38,6 +44,9 @@ const mockDomains: Domain[] = [
     hasToken: true,
     dnsConfigured: false,
     ensConfigured: false,
+    websiteLinked: false,
+    walletLinked: true,
+    heroImage: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=400&fit=crop",
   },
   {
     id: "3",
@@ -48,6 +57,9 @@ const mockDomains: Domain[] = [
     hasToken: false,
     dnsConfigured: true,
     ensConfigured: false,
+    websiteLinked: true,
+    walletLinked: false,
+    heroImage: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=400&fit=crop",
   },
 ];
 
@@ -105,95 +117,95 @@ export default function MyDomains() {
             <TabsTrigger value="active">Active</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="all" className="space-y-4 animate-slide-up">
+          <TabsContent value="all" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-slide-up">
             {domains.map((domain) => {
               const status = getExpiryStatus(domain.daysUntilExpiry);
-              const progress = getExpiryProgress(domain.daysUntilExpiry);
 
               return (
-                <Card key={domain.id} className="bg-card border-border/60 hover:border-primary/40 transition-all">
-                  <CardHeader>
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-center gap-4">
-                        <div className="flex items-center justify-center w-20 h-20 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 border-2 border-primary/30">
-                          <Globe className="h-10 w-10 text-primary" />
-                        </div>
-                        <div>
-                          <CardTitle className="text-2xl font-display">{domain.name}</CardTitle>
-                          <div className="flex items-center gap-2 mt-1">
-                            <Badge variant={status.color as any}>{status.label}</Badge>
-                            {domain.autoRenew && (
-                              <Badge variant="outline" className="border-primary/40 text-primary">
-                                Auto-Renew
-                              </Badge>
-                            )}
-                          </div>
-                        </div>
+                <Card key={domain.id} className="bg-card border-border/60 hover:border-primary/40 transition-all overflow-hidden group">
+                  {/* Hero Image */}
+                  <div className="relative h-48 overflow-hidden bg-gradient-to-br from-primary/20 to-secondary/20">
+                    {domain.heroImage ? (
+                      <img 
+                        src={domain.heroImage} 
+                        alt={domain.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <Globe className="h-16 w-16 text-primary/40" />
                       </div>
-                      <Button variant="ghost" size="icon">
-                        <Settings className="h-5 w-5" />
-                      </Button>
-                    </div>
-                  </CardHeader>
+                    )}
+                    <Button 
+                      variant="ghost" 
+                      size="icon"
+                      className="absolute top-2 right-2 bg-background/80 hover:bg-background/90 backdrop-blur-sm"
+                    >
+                      <Settings className="h-4 w-4" />
+                    </Button>
+                  </div>
 
-                  <CardContent className="space-y-4">
-                    {/* Expiry Progress */}
+                  <CardContent className="p-6 space-y-4">
+                    {/* Domain Name */}
                     <div>
-                      <div className="flex items-center justify-between text-sm mb-2">
-                        <span className="text-muted-foreground">Time until expiry</span>
-                        <span className="font-medium">
-                          {domain.daysUntilExpiry} days ({new Date(domain.expiryDate).toLocaleDateString()})
-                        </span>
-                      </div>
-                      <Progress value={progress} className="h-2" />
-                    </div>
-
-                    {/* Status Grid */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                      <div className="flex items-center gap-2 text-sm">
-                        <Shield className={`h-4 w-4 ${domain.hasToken ? 'text-primary' : 'text-muted-foreground'}`} />
-                        <span className="text-muted-foreground">
-                          Token {domain.hasToken ? 'Active' : 'Not Minted'}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm">
-                        <Globe className={`h-4 w-4 ${domain.dnsConfigured ? 'text-primary' : 'text-muted-foreground'}`} />
-                        <span className="text-muted-foreground">
-                          DNS {domain.dnsConfigured ? 'Configured' : 'Not Set'}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm">
-                        <ExternalLink className={`h-4 w-4 ${domain.ensConfigured ? 'text-primary' : 'text-muted-foreground'}`} />
-                        <span className="text-muted-foreground">
-                          ENS {domain.ensConfigured ? 'Configured' : 'Not Set'}
-                        </span>
+                      <h3 className="text-2xl font-display font-bold mb-2">{domain.name}</h3>
+                      <div className="flex items-center gap-2">
+                        <Badge variant={status.color as any} className="text-xs">
+                          {status.label}
+                        </Badge>
+                        {domain.autoRenew && (
+                          <Badge variant="outline" className="border-primary/40 text-primary text-xs">
+                            Auto-Renew
+                          </Badge>
+                        )}
                       </div>
                     </div>
 
-                    {/* Actions */}
-                    <div className="flex flex-wrap gap-2 pt-2">
-                      <Link to={`/renewals/${domain.id}`}>
-                        <Button variant="default" size="sm">
-                          <RefreshCw className="h-4 w-4 mr-2" />
-                          Renew Domain
-                        </Button>
-                      </Link>
-                      <Link to={`/token/${domain.id}`}>
-                        <Button variant="outline" size="sm">
-                          Manage Token
-                        </Button>
-                      </Link>
-                      <Link to={`/dns/${domain.id}`}>
-                        <Button variant="outline" size="sm">
-                          DNS Settings
-                        </Button>
-                      </Link>
-                      <Link to={`/ens/${domain.id}`}>
-                        <Button variant="outline" size="sm">
-                          ENS Settings
-                        </Button>
-                      </Link>
+                    {/* Status Indicators */}
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <Globe className="h-5 w-5 text-muted-foreground" />
+                        <div className="flex items-center gap-2">
+                          <div className={`h-2 w-2 rounded-full ${domain.websiteLinked ? 'bg-green-500' : 'bg-muted-foreground/30'}`} />
+                          <span className="text-sm font-medium">
+                            Website {domain.websiteLinked ? 'Linked' : 'Not Linked'}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Shield className="h-5 w-5 text-muted-foreground" />
+                        <div className="flex items-center gap-2">
+                          <div className={`h-2 w-2 rounded-full ${domain.walletLinked ? 'bg-green-500' : 'bg-muted-foreground/30'}`} />
+                          <span className="text-sm font-medium">
+                            Wallet {domain.walletLinked ? 'Linked' : 'Not Linked'}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <ExternalLink className="h-5 w-5 text-muted-foreground" />
+                        <div className="flex items-center gap-2">
+                          <div className={`h-2 w-2 rounded-full ${domain.ensConfigured ? 'bg-green-500' : 'bg-muted-foreground/30'}`} />
+                          <span className="text-sm font-medium">
+                            ENS {domain.ensConfigured ? 'Configured' : 'Not Set'}
+                          </span>
+                        </div>
+                      </div>
                     </div>
+
+                    {/* Expiry Info */}
+                    <div className="pt-2 border-t border-border/50">
+                      <div className="text-xs text-muted-foreground mb-1">Expires in</div>
+                      <div className="text-sm font-medium">
+                        {domain.daysUntilExpiry} days
+                      </div>
+                    </div>
+
+                    {/* Primary Action */}
+                    <Link to={`/token/${domain.id}`} className="block">
+                      <Button className="w-full" variant="default">
+                        Manage Token
+                      </Button>
+                    </Link>
                   </CardContent>
                 </Card>
               );
