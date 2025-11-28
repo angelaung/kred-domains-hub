@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { Shield, ExternalLink, Copy, QrCode, Download, Send } from "lucide-react";
+import { Shield, ExternalLink, Copy, QrCode, Download, Send, Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -12,6 +12,8 @@ import { toast } from "sonner";
 export default function TokenManagement() {
   const { domainId } = useParams();
   const [transferAddress, setTransferAddress] = useState("");
+  const [tokenImage, setTokenImage] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const domain = "yourname.kred";
   const tokenId = "0x1234567890abcdef1234567890abcdef12345678";
@@ -32,6 +34,18 @@ export default function TokenManagement() {
     toast.success("Transfer initiated! Check your wallet to confirm.");
   };
 
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setTokenImage(reader.result as string);
+        toast.success("Token image updated!");
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="max-w-4xl mx-auto">
@@ -46,25 +60,63 @@ export default function TokenManagement() {
         </div>
 
         <div className="space-y-6 animate-slide-up">
-          {/* Token Overview */}
+          {/* Token Preview */}
+          <Card className="bg-card border-border/60">
+            <CardContent className="p-6">
+              <div className="flex flex-col md:flex-row gap-6">
+                <div className="relative group">
+                  <div className="w-full md:w-64 aspect-[2/1] rounded-lg bg-gradient-to-br from-primary/20 to-secondary/20 border-2 border-primary/30 flex items-center justify-center overflow-hidden">
+                    {tokenImage ? (
+                      <img src={tokenImage} alt="Token preview" className="w-full h-full object-cover" />
+                    ) : (
+                      <Shield className="h-20 w-20 text-primary/40" />
+                    )}
+                  </div>
+                  <Button
+                    variant="secondary"
+                    size="icon"
+                    className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                    onClick={() => fileInputRef.current?.click()}
+                  >
+                    <Upload className="h-4 w-4" />
+                  </Button>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleImageUpload}
+                  />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <h2 className="text-2xl font-display font-bold flex items-center gap-2">
+                        <Shield className="h-6 w-6 text-primary" />
+                        {domain}
+                      </h2>
+                      <div className="flex items-center gap-2 mt-2">
+                        <Badge className="bg-primary/20 text-primary">NFT Token</Badge>
+                        <Badge variant="outline">{blockchain}</Badge>
+                      </div>
+                    </div>
+                    <Button variant="outline" size="sm">
+                      <ExternalLink className="h-4 w-4 mr-2" />
+                      View on OpenSea
+                    </Button>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Upload a custom image to display on your domain token. Image will be cropped to 2:1 aspect ratio.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Token Details */}
           <Card className="bg-card border-border/60">
             <CardHeader>
-              <div className="flex items-start justify-between">
-                <div>
-                  <CardTitle className="flex items-center gap-2 mb-2">
-                    <Shield className="h-6 w-6 text-primary" />
-                    {domain}
-                  </CardTitle>
-                  <div className="flex items-center gap-2">
-                    <Badge className="bg-primary/20 text-primary">NFT Token</Badge>
-                    <Badge variant="outline">{blockchain}</Badge>
-                  </div>
-                </div>
-                <Button variant="outline" size="sm">
-                  <ExternalLink className="h-4 w-4 mr-2" />
-                  View on OpenSea
-                </Button>
-              </div>
+              <CardTitle>Token Information</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Token Details */}
