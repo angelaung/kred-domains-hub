@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "react-router-dom";
+import kiteboardingHero from "@/assets/kiteboarding-hero.jpg";
 
 interface Domain {
   id: string;
@@ -33,7 +34,7 @@ const mockDomains: Domain[] = [
     ensConfigured: true,
     websiteLinked: true,
     walletLinked: true,
-    heroImage: "https://images.unsplash.com/photo-1535935752851-c7f6bb3ea4ba?w=800&h=400&fit=crop&q=80",
+    heroImage: kiteboardingHero,
   },
   {
     id: "2",
