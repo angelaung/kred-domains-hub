@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Search, Check, X, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,9 +23,11 @@ interface DomainResult {
 }
 
 export default function DomainSearch() {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [searching, setSearching] = useState(false);
   const [results, setResults] = useState<DomainResult[]>([]);
+  const [selectedYears, setSelectedYears] = useState<Map<string, number>>(new Map());
   const [cart, setCart] = useState<Map<string, number>>(new Map());
 
   const handleSearch = async () => {
@@ -62,9 +65,14 @@ export default function DomainSearch() {
     }, 800);
   };
 
-  const addToCart = (domain: string, years: number) => {
+  const addToCart = (domain: string) => {
+    const years = selectedYears.get(domain) || 1;
     setCart(new Map(cart.set(domain, years)));
     toast.success(`${domain} added to cart for ${years} year${years > 1 ? 's' : ''}`);
+  };
+
+  const registerDomain = (domain: string) => {
+    navigate(`/checkout?domain=${encodeURIComponent(domain)}`);
   };
 
   const removeFromCart = (domain: string) => {
@@ -169,7 +177,11 @@ export default function DomainSearch() {
                         <div className="flex items-center gap-2">
                           <Select
                             defaultValue="1"
-                            onValueChange={(value) => addToCart(result.name, parseInt(value))}
+                            onValueChange={(value) => {
+                              const newYears = new Map(selectedYears);
+                              newYears.set(result.name, parseInt(value));
+                              setSelectedYears(newYears);
+                            }}
                           >
                             <SelectTrigger className="w-24">
                               <SelectValue />
@@ -182,6 +194,12 @@ export default function DomainSearch() {
                               ))}
                             </SelectContent>
                           </Select>
+                          <Button
+                            onClick={() => registerDomain(result.name)}
+                            className="animate-glow-pulse"
+                          >
+                            Register
+                          </Button>
                         </div>
                       ) : (
                         <div className="flex items-center gap-2">
@@ -220,7 +238,11 @@ export default function DomainSearch() {
                       </p>
                     </div>
                   </div>
-                  <Button size="lg" className="animate-glow-pulse">
+                  <Button 
+                    size="lg" 
+                    className="animate-glow-pulse"
+                    onClick={() => navigate('/checkout')}
+                  >
                     Proceed to Checkout
                   </Button>
                 </div>
