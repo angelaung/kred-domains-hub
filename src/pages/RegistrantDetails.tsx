@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { User, Mail, Phone, MapPin, Building, Save, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -15,10 +15,9 @@ import {
 import { toast } from "sonner";
 
 export default function RegistrantDetails() {
-  const { domainId } = useParams();
   const navigate = useNavigate();
 
-  // Mock data from CNR contact ID - would be fetched from API
+  // Account-level registrant data - would be fetched from API
   const [formData, setFormData] = useState({
     firstName: "John",
     lastName: "Doe",
@@ -33,7 +32,6 @@ export default function RegistrantDetails() {
   });
 
   const [loading, setLoading] = useState(false);
-  const domain = "yourname.kred";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,10 +55,10 @@ export default function RegistrantDetails() {
         {/* Header */}
         <div className="mb-8 animate-slide-up">
           <h1 className="text-4xl md:text-5xl font-display font-bold mb-2">
-            Update <span className="gradient-text">Registrant Details</span>
+            <span className="gradient-text">Registrant Information</span>
           </h1>
           <p className="text-muted-foreground">
-            Manage contact information for {domain}
+            Manage your account-level registrant details for all domains
           </p>
         </div>
 

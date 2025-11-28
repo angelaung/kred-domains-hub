@@ -28,7 +28,7 @@ const App = () => (
             <Route path="/" element={<DomainSearch />} />
             <Route path="/my-domains" element={<MyDomains />} />
             <Route path="/renewals/:domainId" element={<DomainRenewal />} />
-            <Route path="/registrant/:domainId" element={<RegistrantDetails />} />
+            <Route path="/registrant-details" element={<RegistrantDetails />} />
             <Route path="/token/:domainId" element={<TokenManagement />} />
             <Route path="/dns/:domainId" element={<DNSManagement />} />
             <Route path="/dns" element={<DNSManagement />} />
