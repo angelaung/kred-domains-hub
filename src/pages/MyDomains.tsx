@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Globe, RefreshCw, Settings, ExternalLink, Shield } from "lucide-react";
+import { Globe, RefreshCw, Settings, ExternalLink, Shield, Search, ArrowLeftRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -70,12 +70,30 @@ export default function MyDomains() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8 animate-slide-up">
-          <h1 className="text-4xl md:text-5xl font-display font-bold mb-2">
-            My <span className="gradient-text">Domains</span>
-          </h1>
-          <p className="text-muted-foreground">
-            Manage your .Kred domains, renewals, and configurations
-          </p>
+          <div className="flex items-start justify-between">
+            <div>
+              <h1 className="text-4xl md:text-5xl font-display font-bold mb-2">
+                My <span className="gradient-text">Domains</span>
+              </h1>
+              <p className="text-muted-foreground">
+                Manage your .Kred domains, renewals, and configurations
+              </p>
+            </div>
+            <div className="flex gap-2">
+              <Link to="/search">
+                <Button variant="outline">
+                  <Search className="h-4 w-4 mr-2" />
+                  Register
+                </Button>
+              </Link>
+              <Link to="/transfers">
+                <Button variant="default">
+                  <ArrowLeftRight className="h-4 w-4 mr-2" />
+                  Transfer
+                </Button>
+              </Link>
+            </div>
+          </div>
         </div>
 
         <Tabs defaultValue="all" className="space-y-6">
@@ -96,9 +114,9 @@ export default function MyDomains() {
                 <Card key={domain.id} className="bg-card border-border/60 hover:border-primary/40 transition-all">
                   <CardHeader>
                     <div className="flex items-start justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10">
-                          <Globe className="h-6 w-6 text-primary" />
+                      <div className="flex items-center gap-4">
+                        <div className="flex items-center justify-center w-20 h-20 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 border-2 border-primary/30">
+                          <Globe className="h-10 w-10 text-primary" />
                         </div>
                         <div>
                           <CardTitle className="text-2xl font-display">{domain.name}</CardTitle>
@@ -158,11 +176,6 @@ export default function MyDomains() {
                         <Button variant="default" size="sm">
                           <RefreshCw className="h-4 w-4 mr-2" />
                           Renew Domain
-                        </Button>
-                      </Link>
-                      <Link to={`/registrant/${domain.id}`}>
-                        <Button variant="outline" size="sm">
-                          Update Details
                         </Button>
                       </Link>
                       <Link to={`/token/${domain.id}`}>
