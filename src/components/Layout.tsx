@@ -12,6 +12,7 @@ const navigationItems = [
   { name: "My Domains", path: "/my-domains" },
   { name: "Transfers", path: "/transfers" },
   { name: "DNS", path: "/dns" },
+  { name: "Registrant Info", path: "/registrant-details" },
 ];
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
