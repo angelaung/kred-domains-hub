@@ -218,7 +218,7 @@ export default function TokenManagement() {
               <div className="bg-destructive/10 border border-destructive/30 rounded-lg p-4">
                 <p className="text-sm font-medium mb-2 text-destructive">⚠️ Important</p>
                 <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
-                  <li>Transferring the token will transfer domain ownership</li>
+                  <li>Transferring the token will transfer control of the domain token only, ENS records, or DNS and ENS records (depending on domain configuration)</li>
                   <li>This action cannot be undone</li>
                   <li>Verify the recipient address is correct</li>
                   <li>Gas fees will apply</li>
